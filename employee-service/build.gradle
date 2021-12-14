@@ -1,0 +1,45 @@
+plugins {
+	 id 'org.springframework.boot' version '2.2.4.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'com.sgic.employee.server'
+version = '0.0.1'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compileOnly 'org.projectlombok:lombok:1.18.20'
+	annotationProcessor 'org.projectlombok:lombok:1.18.20'
+	implementation group: 'io.springfox', name: 'springfox-boot-starter', version: '3.0.0'
+	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '3.0.0'
+	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '3.0.0'
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.5.2'
+	//implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-server', version: '2.2.9.RELEASE'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.17'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.5.2'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-rest', version: '2.5.3'
+	//implementation group: 'com.orhanobut', name: 'logger', version: '2.2.0'
+	implementation group: 'org.hibernate.validator', name: 'hibernate-validator', version: '6.2.0.Final'
+	implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-sleuth', version: '2.2.8.RELEASE'
+	implementation group: 'com.univocity', name: 'univocity-parsers', version: '2.9.1'
+	// https://mvnrepository.com/artifact/org.apache.poi/poi
+    implementation group: 'org.apache.poi', name: 'poi', version: '4.1.2'
+    // https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml
+	implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.2'
+	// https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jasper
+	implementation group: 'org.apache.tomcat', name: 'tomcat-jasper', version: '9.0.38'
+	
+    	
+	
+}
+
+test {
+	useJUnitPlatform()
+}

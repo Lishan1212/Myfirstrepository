@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+	<include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <property name="primaryLog" value="/logs/employee-service.log"/>
+    <property name="queryLog" value="/logs/employee-service-query.log"/>
+
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <!--<level value="error"/> DOES NOT WORK!!! -->
+            <level>info</level>
+        </filter>
+        <encoder>
+            <pattern>%d %-5p ThreadId: [%thread] TraceId : [%X{X-B3-TraceId:-}] | SpanId : [%X{X-B3-SpanId:-}] [%c{50}:%M] %m%n%ex</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="primaryLogAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${primaryLog}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${primaryLog}.%d</fileNamePattern>
+            <!--<maxHistory>14</maxHistory>-->
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d %-5p TraceId : [%X{X-B3-TraceId:-}] | SpanId : [%X{X-B3-SpanId:-}] [%c{50}:%M] %m%n%ex</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="queryLogAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${queryLog}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${queryLog}.%d</fileNamePattern>
+            <!--<maxHistory>14</maxHistory>-->
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d %-5p TraceId : [%X{X-B3-TraceId:-}] | SpanId : [%X{X-B3-SpanId:-}] %m%n%ex</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.sgic.employee" level="info"/>
+    <logger name="net.sf.ehcache.distribution" level="off"/>
+
+    <logger name="org.springframework" level="warn"/>
+
+    <logger name="org.hibernate" level="warn"/>
+    <logger name="org.hibernate.SQL" level="info" additivity="false">
+        <appender-ref ref="queryLogAppender"/>
+    </logger>
+
+    <root>
+        <level value="info"/>
+        <appender-ref ref="consoleAppender"/>
+        <appender-ref ref="primaryLogAppender"/>
+        
+    </root>
+
+</configuration>
